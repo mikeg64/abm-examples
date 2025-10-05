@@ -28,7 +28,7 @@ class Plant(Agent):
     any other Boid.
     '''
     
-    def __init__(self, unique_id, model, pos, fruit =5, vision = 2, separation=1, atype=1):
+    def __init__(self, unique_id, model, pos, fruit =5, vision = 2, separation=1, atype=1, size=2, energy=2, age=0, health=10,education=1, water=10, food=2, peace=2):
         super().__init__( model)
         '''
         Create a new Plant agent.
@@ -47,8 +47,16 @@ class Plant(Agent):
         self.vision = vision
         self.time = 0
         self.numneighbours=0
-
-
+        self.size=size
+        self.energy=energy
+        self.age=age
+        self.health=health
+        self.education=education
+        self.water=water
+        self.food=food
+        self.peace=peace
+        self.model = model
+        
     def step(self):
         '''
         Get the Boid's neighbors, compute the new vector, and move accordingly.
@@ -118,7 +126,7 @@ class Tree(Agent):
     any other Boid.
     '''
     
-    def __init__(self, unique_id, model, pos, fruit =5, vision = 2, separation=1, atype=1):
+    def __init__(self, unique_id, model, pos, fruit =5, vision = 2, separation=1, atype=1, size=2, energy=2, age=0, health=10,education=1, water=10, food=2, peace=2):
         super().__init__( model)
         '''
         Create a new Plant agent.
@@ -137,7 +145,15 @@ class Tree(Agent):
         self.vision = vision
         self.time = 0
         self.numneighbours=0
-
+        self.size=size
+        self.energy=energy
+        self.age=age
+        self.health=health
+        self.education=education
+        self.water=water
+        self.food=food
+        self.peace=peace
+        self.model = model
 
     def step(self):
         '''
@@ -209,7 +225,7 @@ class factory(Agent):
     any other Boid.
     '''
     
-    def __init__(self, unique_id, model, pos, proccessedfood=5, honey=5, vision=5, separation=1, atype=2):
+    def __init__(self, unique_id, model, pos, proccessedfood=5, honey=5, vision=5, separation=1, atype=2, size=2, energy=2, age=0, health=10,education=1, water=10, food=2, peace=2):
         super().__init__(model)
         '''
         Create a new factory agent.
@@ -229,7 +245,18 @@ class factory(Agent):
         self.honey = honey
         self.atype = atype
         self.vision = vision
-
+        self.size=size
+        self.energy=energy
+        self.age=age
+        self.health=health
+        self.education=education
+        self.water=water
+        self.food=food
+        self.peace=peace
+        self.model = model
+        
+        
+        
     def step(self):
         '''
         Get the Boid's neighbors, compute the new vector, and move accordingly.
@@ -295,8 +322,8 @@ class creature(Agent):
     any other Boid.
     '''
     #creature(i+self.NB+self.NP, self, pos, 5, 5, self.vision,self.qseparation)
-    def __init__(self, unique_id, model, pos, fruit=5, health=5, speed=0.1, heading=None,
-                 vision=5, separation=1, atype=0):
+    def __init__(self, unique_id, model, pos, fruit=5, speed=0.1, heading=None,
+                 vision=5, separation=1, atype=0, size=2, energy=2, age=0, health=10,education=1, water=10, food=2, peace=2):
         super().__init__( model)
         '''
         Create a new creature flocker agent.
@@ -311,8 +338,6 @@ class creature(Agent):
         
         self.pos = pos
         self.fruit = fruit
-        self.health = health
-        self.fruit = fruit
         self.speed = speed
         self.atype=atype
         self.honey=0
@@ -321,6 +346,17 @@ class creature(Agent):
         self.randomstatestep = 0
         self.stepswithqueen=0
         self.model=model
+        self.size=size
+        self.energy=energy
+        self.age=age
+        self.health=health
+        self.education=education
+        self.water=water
+        self.food=food
+        self.peace=peace        
+        
+        
+        
         if heading is not None:
             self.heading = heading
         else:
@@ -331,6 +367,7 @@ class creature(Agent):
             #self.heading+=np.float64(center)
             #self.heading /= np.linalg.norm(self.heading)
 
+        heading=1
         self.vision = vision
         self.separation = separation
 
@@ -473,6 +510,7 @@ class creature(Agent):
 
         #neighbors = self.model.space.get_neighbors(self.pos, self.vision, False)
         r = self.vision  # or any other radius you define
+        #r=5
         neighbors = self.model.space.get_neighbors(self.pos, r, include_center=False)
         print("creature "+str(self.unique_id))
         # Do something with the neighbors
@@ -558,7 +596,7 @@ class Mineral(Agent):
     any other Boid.
     '''
     
-    def __init__(self, unique_id, model, pos, fruit =5, vision = 2, separation=1, atype=1):
+    def __init__(self, unique_id, model, pos, fruit =5, vision = 2, separation=1, atype=1, size=2, energy=2, age=0, health=10,education=1, water=10, food=2, peace=2):
         super().__init__( model)
         '''
         Create a new Plant agent.
@@ -576,7 +614,14 @@ class Mineral(Agent):
         self.vision = vision
         self.time = 0
         self.numneighbours=0
-
+        self.size=size
+        self.energy=energy
+        self.age=age
+        self.health=health
+        self.education=education
+        self.water=water
+        self.food=food
+        self.peace=peace
 
     def step(self):
         '''
@@ -594,6 +639,7 @@ class Mineral(Agent):
         my_pos = np.array(self.pos)
         
         r = self.vision  # or any other radius you define
+        r=5
         neighbors = self.model.space.get_neighbors(self.pos, r, include_center=False)
         print("mineral "+str(self.unique_id))
         '''

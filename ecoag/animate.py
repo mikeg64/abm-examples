@@ -68,7 +68,7 @@ def draw_boids(model):
 
 
 #model = HiveModel(5, 100, 3, 100, 100, speed=0.1, vision=20, pseparation=2, bseparation=1, qseparation=8)
-model = HiveModel(0, 100, 0, 100, 100, speed=0.1, vision=20, pseparation=2, bseparation=1, qseparation=8)
+#model = HiveModel(0, 100, 0, 100, 100, speed=0.1, vision=20, pseparation=2, bseparation=1, qseparation=8)
 
 model.step
 

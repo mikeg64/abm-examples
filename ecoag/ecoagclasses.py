@@ -35,6 +35,14 @@ class EnvironmentalParams:
         self.soil_health = soil_health
         self.water_availability = water_availability
         self.pollution_rate = pollution_rate
+        
+    def to_dict(self):
+        return self.__dict__
+
+    @staticmethod
+    def from_dict(data):
+        return EnvironmentalParams(**data)
+
 
 
 class SocialParams:
@@ -51,13 +59,21 @@ class SocialParams:
         self.health_index = health_index
         self.housing_security = housing_security
         self.peace_justice = peace_justice
+        
+    def to_dict(self):
+        return self.__dict__
+
+    @staticmethod
+    def from_dict(data):
+        return SocialParams(**data)
+    
 
 class EcoagParams:
     def __init__(self,
                  NP=10, NB=5, NQ=3,NA=3,NF=3,NM=3,
                  width=100, height=100,
                  speed=0.1, vision=5,
-                 pseparation=1, bseparation=1, qseparation=1):
+                 pseparation=1, bseparation=1, qseparation=1, size=2, energy=2, age=0, health=10,education=1, water=10, food=2, peace=2):
         self.NP = NP  # Number of plants
         self.NB = NB  # Number of humans
         self.NQ = NQ  # Number of trees or other agents
@@ -71,7 +87,21 @@ class EcoagParams:
         self.pseparation = pseparation
         self.bseparation = bseparation
         self.qseparation = qseparation
+        self.size=size
+        self.energy=energy
+        self.age=age
+        self.health=health
+        self.education=education
+        self.water=water
+        self.food=food
+        self.peace=peace
 
+    def to_dict(self):
+        return self.__dict__
+
+    @staticmethod
+    def from_dict(data):
+        return EcoagParams(**data)
 
 
 
@@ -152,13 +182,14 @@ class EcoagModel(Model):
             pos = (random.uniform(0, self.params.width), random.uniform(0, self.params.height))
             ang=2*math.pi*np.random.random(1)
             heading=np.array((math.cos(ang),math.sin(ang)))
+            heading=1
             #heading = np.random.random(2) * 2 - np.array((1, 1))
             #heading /= np.linalg.norm(heading)
             
-            #self, unique_id, model, pos, fruit=5, health=5, speed=0.1, heading=None,
-            #             vision1=5, separation=1, atype=0
-            
-            human_agent = human(i, self, pos, 5,5,self.speed, heading,self.vision,self.bseparation)
+           
+            #(self, unique_id, model, pos, fruit=5, speed=0.1, heading=None,
+            #             vision1=5, separation=1, atype=0, size=2, energy=2, age=0, health=10,education=1, water=10, food=2, peace=2)
+            human_agent = human(i, self, pos, 5,self.speed, heading,self.vision,self.bseparation)
  
             
             self.agents.add(human_agent)
@@ -208,8 +239,12 @@ class EcoagModel(Model):
              pos = (random.uniform(0, self.params.width), random.uniform(0, self.params.height))
              ang=2*math.pi*np.random.random(1)
              heading=np.array((math.cos(ang),math.sin(ang)))
-             #(self, unique_id, model, pos, fruit=5, health=5, speed=0.1, heading=None, vision=5, separation=1, atype=0)
-             creature_agent = creature(i+ntot, self, pos, 5, 5, 0.1, heading, self.vision,self.qseparation)
+             
+             
+             #(self, unique_id, model, pos, fruit=5, speed=0.1, heading=None,
+             #             vision=5, separation=1, atype=0, size=2, energy=2, age=0, health=10,education=1, water=10, food=2, peace=2)
+             
+             creature_agent = creature(i+ntot, self, pos, 5, 0.1, heading, self.vision,self.qseparation)
              #if creature_agent.pos is not None:
              #    self.space.remove_agent(creature_agent)
              self.space.place_agent(creature_agent, pos)

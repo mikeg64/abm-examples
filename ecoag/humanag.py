@@ -36,8 +36,8 @@ class human(Agent):
     any other Boid.
     '''
 
-    def __init__(self, unique_id, model, pos, fruit=5, health=5, speed=0.1, heading=None,
-                 vision1=5, separation=1, atype=0):
+    def __init__(self, unique_id, model, pos, fruit=5, speed=0.1, heading=None,
+                 vision1=5, separation=1, atype=0, size=2, energy=2, age=0, health=10,education=1, water=10, food=2, peace=2):
         super().__init__(model)
         #super().__init__(unique_id, model)
         '''
@@ -54,7 +54,6 @@ class human(Agent):
 
         self.pos = pos
         self.fruit = fruit
-        self.health = health
         self.fruit = fruit
         self.speed = speed
         self.atype = atype
@@ -63,6 +62,15 @@ class human(Agent):
         self.randomstatecycle = 6
         self.randomstatestep = 0
         self.stepswithfactory = 0
+        self.vision=vision1
+        self.size=size
+        self.energy=energy
+        self.age=age
+        self.health=health
+        self.education=education
+        self.water=water
+        self.food=food
+        self.peace=peace                
         self.model = model
         if heading is not None:
             self.heading = heading
@@ -74,11 +82,44 @@ class human(Agent):
             # self.heading+=np.float64(center)
             #self.heading /= np.linalg.norm(self.heading)
 
-        self.vision = vision1
+        
         self.separation = separation
         
         #print("vis1"+str(vision1))
         #print("vis2"+str(self.vision))
+
+
+    def to_dict(self):
+        return {
+            "unique_id": self.unique_id,
+            "pos": self.pos,
+            "fruit": self.fruit,
+            "health": self.health,
+            "speed": self.speed,
+            "heading": self.heading,
+            "vision": self.vision,
+            "separation": self.separation,
+            "atype": self.atype
+        }
+
+    @staticmethod
+    def from_dict(data, model):
+        return human(
+            unique_id=data["unique_id"],
+            model=model,
+            pos=tuple(data["pos"]),
+            fruit=data["fruit"],
+            health=data["health"],
+            speed=data["speed"],
+            heading=data["heading"],
+            vision1=data["vision"],
+            separation=data["separation"],
+            atype=data["atype"]
+        )
+
+
+
+
 
     def cohere(self, neighbors):
         '''
