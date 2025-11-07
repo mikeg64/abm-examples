@@ -287,12 +287,13 @@ class human(Agent):
 
         # rule to set random heading for the humans
         self.randommove()
-
+        print("human  random state flag="+str(self.randomstateflag))
+        self.randomstateflag=1
         if self.randomstateflag == 1:
-            self.randomstatestep += 1
-            if self.randomstatestep > self.randomstatecycle:
-                self.randomstateflag = 0
-                self.randomstatestep = 0
+            #self.randomstatestep += 1
+            #if self.randomstatestep > self.randomstatecycle:
+            #    self.randomstateflag = 0
+            #    self.randomstatestep = 0
             ang = 2*math.pi*np.random.random(1)
             self.heading = np.array((math.cos(ang), math.sin(ang)))
 
@@ -307,6 +308,7 @@ class human(Agent):
                     self.stepswithfactory += 1
 
         new_pos = np.array(self.pos) + self.heading * self.speed
+        print(str(new_pos)+"   "+str(self.pos))
         new_x, new_y = new_pos
         if math.isnan(new_x) or math.isnan(new_y):
             print("nan pos detected ")

@@ -174,7 +174,7 @@ class EcoagModel(Model):
         #    NF factories (initially zero)
         #    NM minerals
         
-        print("vision "+str(self.vision))
+        print("vision "+str(self.vision)+" speed "+str(self.speed))
         for i in range(self.NB):
             #x = random.random() * self.space.x_max
             #y = random.random() * self.space.y_max
